@@ -32,7 +32,7 @@ final class StatusTaskFactory extends PersistentProxyObjectFactory
     protected function defaults(): array|callable
     {
         return [
-            'status' => self::faker()->text(255),
+            'status' => self::faker()->text(5),
         ];
     }
 

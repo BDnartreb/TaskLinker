@@ -33,7 +33,7 @@ final class ProjectFactory extends PersistentProxyObjectFactory
     {
         return [
             'archived' => self::faker()->boolean(),
-            'title' => self::faker()->text(255),
+            'title' => self::faker()->text(50),
         ];
     }
 

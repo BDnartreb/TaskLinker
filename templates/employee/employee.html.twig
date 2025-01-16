@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Employé{% endblock %}
+
+{% block body %}
+   <main>
+      <header>
+         <div id="current-user"></div>
+         <div id="title-page">
+            <h1>Natalie Dillon</h1>
+         </div>
+      </header>
+      <div id="content">
+         {{ form_start(form) }}
+                  {{ form_row(form.lastName, {label: 'Nom'}) }}
+                  {{ form_row(form.firstName, {label: 'Prénom'}) }}
+                  {{ form_row(form.email, {label: 'Email'}) }}
+                  <div class="form-flex"></div>
+                     {{ form_row(form.recruitmentDate, {label: 'Date d\'entrée'}) }}
+                     {{ form_row(form.contractType_id, {label: 'Statut'}) }}
+                  </div>
+         {{ form_end(form) }}
+         <button class="button button-submit">Enregistrer</button>
+      </div>
+   </main>
+{% endblock %}

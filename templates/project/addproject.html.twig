@@ -3,6 +3,7 @@
 {% set action = app.current_route == 'app_add_project' ? 'Nouveau projet' : 'Editer projet' %}
 {% set title = app.current_route == 'app_add_project' ? 'Nouveau projet' : title %}
 {% set button = app.current_route == 'app_add_project' ? 'Continuer' : 'Modifier' %}
+{#{% set button = app.current_route == 'app_archive_project' ? 'Archiver' : 'TOTO' %}#}
 
 {% block title %} {{ action }} une tache{% endblock %}
 
@@ -18,7 +19,12 @@
             {{ form_start(form) }}
                 {{ form_row(form.title, {label: 'Titre du projet'}) }}
                 {{ form_row(form.employees, {label: 'Inviter des membres'}) }}
-                <button class="button button-submit">{{ button }}</button>
+                {% if app.current_route == 'app_archive_project'%}
+                    {{ form_row(form.archived, {label: 'Archiver ?'}) }}
+                    <button class="button button-submit">Archiver</button>
+                {% else %}
+                    <button class="button button-submit">{{ button }}</button>
+                {% endif %}
             {{ form_end(form) }}
         </div>
     </main>

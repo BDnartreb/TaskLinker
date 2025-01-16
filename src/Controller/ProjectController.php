@@ -43,9 +43,10 @@ class ProjectController extends AbstractController
 
     #[Route('project/ajouter' , name: 'app_add_project', methods: ['GET', 'POST'])]
     #[Route('project/{id}/edit' , name: 'app_edit_project', methods: ['GET', 'POST'])]
+    #[Route('project/{id}/archive' , name: 'app_archive_project', methods: ['GET', 'POST'])]
     public function addProject(?Project $project, Request $request, EntityManagerInterface $manager)
     {
-        $id = $request->get('id');
+        $projectId = $request->get('id');
         $project ??= new Project();
         $form = $this->createForm(ProjectType::class, $project);
 
@@ -54,7 +55,7 @@ class ProjectController extends AbstractController
             $manager->persist($project);
             $manager->flush();
 
-            return $this->redirectToRoute('app_project', ['id' => $id]);
+            return $this->redirectToRoute('app_project', ['id' => $projectId]);
         }
 
         return $this->render('project/addproject.html.twig', [
@@ -62,28 +63,5 @@ class ProjectController extends AbstractController
             'title' => $project->getTitle(),
         ]);
     }
-
-    #[Route('/tache/{id}/ajouter', name: 'app_add_task', methods: ['GET', 'POST'])]
-    #[Route('/tache/{id}/editer', name: 'app_edit_task', methods: ['GET', 'POST'])]
-    public function addTask(?Task $task, Request $request, EntityManagerInterface $manager): Response
-    {
-        $id = $request->get('id'); //get the project id to route to this project after a task adding
-        $task ??= new Task();
-        $form = $this->createForm(TaskType::class, $task);
-
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()){
-            $manager->persist($task);
-            $manager->flush();
-
-            return $this->redirectToRoute('app_project', ['id' => $id]);
-        }
-
-        return $this->render('task/task.html.twig', [
-            'form' => $form,
-            'title' => $task->getTitle(),
-        ]);
-    }
-
 
 }

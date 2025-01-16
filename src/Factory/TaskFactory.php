@@ -2,6 +2,7 @@
 
 namespace App\Factory;
 
+use App\Entity\StatusTask;
 use App\Entity\Task;
 use App\Repository\TaskRepository;
 use Doctrine\ORM\EntityRepository;
@@ -36,8 +37,11 @@ final class TaskFactory extends PersistentProxyObjectFactory{
     {
         return [
             'project' => ProjectFactory::new(),
-            'status' => self::faker()->NumberBetween(1, 3),
-            'title' => self::faker()->text(255),
+            'status' => StatusTaskFactory::new(),
+            //'status_id' => self::faker()->numberBetween(1, 3),
+            'employee' => EmployeeFactory::new(),
+            'title' => self::faker()->text(10),
+            'description' => self::faker()->text(50),
         ];
     }
 

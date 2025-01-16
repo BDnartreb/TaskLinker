@@ -2,6 +2,7 @@
 
 {% set action = app.current_route == 'app_add_task' ? 'Créer' : 'Editer' %}
 {% set title = app.current_route == 'app_add_task' ? 'Créer une tâche' : title %}
+{% set button = app.current_route == 'app_add_task' ? 'Ajouter' : 'Modifier' %}
 
 {% block title %} {{ action }} une tache{% endblock %}
 
@@ -20,11 +21,13 @@
                 {{ form_row(form.deadline, {label: 'Date'}) }}
                 {{ form_row(form.status, {label: 'Statut'}) }}
                 {{ form_row(form.employee, {label: 'Membre'}) }}
-                <button class="button button-submit">Modifier</button>
+                <button class="button button-submit">{{ button }}</button>
             {{ form_end(form) }}
-            <a class="" href="{{ path('app_home') }}">
-                Supprimer la tâche
-            </a>
+            {% if app.current_route == 'app_edit_task' %}
+                <a class="" href="{{ path('app_delete_task') }}">
+                    Supprimer la tâche
+                </a>
+            {% endif %}
         </div>
     </main>
 {% endblock %}

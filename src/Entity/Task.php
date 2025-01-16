@@ -21,6 +21,10 @@ class Task
     #[ORM\ManyToOne(targetEntity: Employee::class, inversedBy: 'id')]
     private ?employee $employee = null;
 
+    /* test pour fixtures
+    #[ORM\Column]
+    private ?int $status = null;*/
+
     #[ORM\ManyToOne(targetEntity: StatusTask::class, inversedBy: 'id')]
     #[ORM\JoinColumn(nullable: false)]
     private ?statustask $status = null;
@@ -62,6 +66,19 @@ class Task
 
         return $this;
     }
+
+    /* test pour fixtures
+    public function getStatus(): ?int
+    {
+        return $this->status;
+    }
+
+    public function setStatus(int $status): static
+    {
+        $this->status = $status;
+
+        return $this;
+    }*/
 
     public function getStatus(): ?statustask
     {

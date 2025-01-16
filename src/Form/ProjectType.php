@@ -18,7 +18,9 @@ class ProjectType extends AbstractType
             ->add('archived')
             ->add('employees', EntityType::class, [
                 'class' => Employee::class,
-                'choice_label' => 'id',
+                'choice_label' => function($employee){
+                    return $employee->getFirstname() . ' ' . $employee->getLastname();
+                },
                 'multiple' => true,
             ])
         ;
