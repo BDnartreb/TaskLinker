@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% set action = app.current_route == 'app_add_project' ? 'Nouveau projet' : 'Editer projet' %}
+{% set title = app.current_route == 'app_add_project' ? 'Nouveau projet' : title %}
+{% set button = app.current_route == 'app_add_project' ? 'Continuer' : 'Modifier' %}
+
+{% block title %} {{ action }} une tache{% endblock %}
+
+{% block body %}
+    <main>
+        <header>
+        <div id="current-user"></div>
+        <div id="title-page">
+            <h1>{{ title }}</h1>
+        </div>
+        </header>
+        <div id="content">
+            {{ form_start(form) }}
+                {{ form_row(form.title, {label: 'Titre du projet'}) }}
+                {{ form_row(form.employees, {label: 'Inviter des membres'}) }}
+                <button class="button button-submit">{{ button }}</button>
+            {{ form_end(form) }}
+        </div>
+    </main>
+{% endblock %}
