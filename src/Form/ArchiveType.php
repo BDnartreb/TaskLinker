@@ -9,27 +9,20 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ProjectType extends AbstractType
+class ArchiveType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('title')
             ->add('archived')
-             /*->add('employees', EntityType::class, [
-                'class' => Project::class,
-                'choice_label' => function($project){
-                    return $project->getEmployees()->getFirstname() . ' ' . $project->getEmployees()->getLastname();
-                },
-                'multiple' => true,
-            ])*/
-            ->add('employees', EntityType::class, [
+            /*->add('employees', EntityType::class, [
                 'class' => Employee::class,
                 'choice_label' => function($employee){
                     return $employee->getFirstname() . ' ' . $employee->getLastname();
                 },
                 'multiple' => true,
-            ])
+            ])*/
         ;
     }
 

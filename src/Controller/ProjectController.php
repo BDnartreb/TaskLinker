@@ -6,6 +6,7 @@ use App\Entity\Task;
 use App\Form\TaskType;
 use App\Entity\Project;
 use App\Form\ProjectType;
+use App\Form\ArchiveType;
 use App\Repository\ProjectRepository;
 use App\Repository\TaskRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -43,10 +44,8 @@ class ProjectController extends AbstractController
 
     #[Route('project/ajouter' , name: 'app_add_project', methods: ['GET', 'POST'])]
     #[Route('project/{id}/edit' , name: 'app_edit_project', methods: ['GET', 'POST'])]
-    #[Route('project/{id}/archive' , name: 'app_archive_project', methods: ['GET', 'POST'])]
     public function addProject(?Project $project, Request $request, EntityManagerInterface $manager)
     {
-        $projectId = $request->get('id');
         $project ??= new Project();
         $form = $this->createForm(ProjectType::class, $project);
 
@@ -55,7 +54,28 @@ class ProjectController extends AbstractController
             $manager->persist($project);
             $manager->flush();
 
-            return $this->redirectToRoute('app_project', ['id' => $projectId]);
+            return $this->redirectToRoute('app_home');
+        }
+
+        return $this->render('project/addproject.html.twig', [
+            'form' => $form,
+            'title' => $project->getTitle(),
+        ]);
+    }
+
+    #[Route('project/{id}/archive' , name: 'app_archive_project', methods: ['GET', 'POST'])]
+    public function archiveProject(int $id, Request $request, EntityManagerInterface $manager)
+    {
+        $id = $request->get('id');
+        $project = $this->projectRepository->find($id);
+        $form = $this->createForm(ProjectType::class, $project);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()){
+            $manager->persist($project);
+            $manager->flush();
+
+            return $this->redirectToRoute('app_home');
         }
 
         return $this->render('project/addproject.html.twig', [

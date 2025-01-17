@@ -30,6 +30,7 @@ class Project
     public function __construct()
     {
         $this->employees = new ArrayCollection();
+        $this->archived = 0;
     }
 
     public function getId(): ?int

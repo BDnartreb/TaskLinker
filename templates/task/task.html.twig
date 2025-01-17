@@ -16,7 +16,7 @@
         </header>
         <div id="content">
             {{ form_start(form) }}
-                {{ form_row(form.title, {label: 'Titre de la tâche'}) }}
+                {{ form_row(form.title) }}
                 {{ form_row(form.description) }}
                 {{ form_row(form.deadline, {label: 'Date'}) }}
                 {{ form_row(form.status, {label: 'Statut'}) }}
@@ -24,7 +24,7 @@
                 <button class="button button-submit">{{ button }}</button>
             {{ form_end(form) }}
             {% if app.current_route == 'app_edit_task' %}
-                <a class="" href="{{ path('app_delete_task') }}">
+                <a class="" href="{{ path('app_delete_task', {id: task.id}) }}">
                     Supprimer la tâche
                 </a>
             {% endif %}

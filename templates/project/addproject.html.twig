@@ -3,7 +3,6 @@
 {% set action = app.current_route == 'app_add_project' ? 'Nouveau projet' : 'Editer projet' %}
 {% set title = app.current_route == 'app_add_project' ? 'Nouveau projet' : title %}
 {% set button = app.current_route == 'app_add_project' ? 'Continuer' : 'Modifier' %}
-{#{% set button = app.current_route == 'app_archive_project' ? 'Archiver' : 'TOTO' %}#}
 
 {% block title %} {{ action }} une tache{% endblock %}
 
@@ -26,6 +25,8 @@
                     <button class="button button-submit">{{ button }}</button>
                 {% endif %}
             {{ form_end(form) }}
+            {#{{ form_end(form, {'render_rest': false}) }}
+            n'affiche pas les champs non séecltionnés mais empèche d'exécuter la soumission du formulaire #}
         </div>
     </main>
 {% endblock %}
