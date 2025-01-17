@@ -16,9 +16,6 @@ class Employee
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column]
-    private ?int $contractType_id = null;
-
     #[ORM\Column(length: 255)]
     private ?string $firstName = null;
 
@@ -37,6 +34,9 @@ class Employee
     #[ORM\ManyToMany(targetEntity: Project::class, mappedBy: 'employees', orphanRemoval: true)]
     private Collection $projects;
 
+    #[ORM\ManyToOne(inversedBy: 'employees')]
+    private ?ContractStatus $contractStatus = null;
+
     public function __construct()
     {
         $this->projects = new ArrayCollection();
@@ -45,18 +45,6 @@ class Employee
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getContractTypeId(): ?int
-    {
-        return $this->contractType_id;
-    }
-
-    public function setContractTypeId(int $contractType_id): static
-    {
-        $this->contractType_id = $contractType_id;
-
-        return $this;
     }
 
     public function getFirstName(): ?string
@@ -130,6 +118,18 @@ class Employee
         if ($this->projects->removeElement($project)) {
             $project->removeEmployees($this);
         }
+
+        return $this;
+    }
+
+    public function getContractStatus(): ?contractstatus
+    {
+        return $this->contractStatus;
+    }
+
+    public function setContractStatus(?contractstatus $contractStatus): static
+    {
+        $this->contractStatus = $contractStatus;
 
         return $this;
     }

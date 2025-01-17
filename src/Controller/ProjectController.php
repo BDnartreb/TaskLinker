@@ -36,9 +36,12 @@ class ProjectController extends AbstractController
             return $this->redirectToRoute('app_home');
         }
 
+        //$avatar = substr($project->getEmployees()->getFirstName(), 0, 1);
+
         return $this->render('project/project.html.twig', [
             'project' => $project,
             'tasks' => $tasks,
+            //'avatar' => $avatar,
         ]);
     }
 
@@ -57,9 +60,12 @@ class ProjectController extends AbstractController
             return $this->redirectToRoute('app_home');
         }
 
+
+
         return $this->render('project/addproject.html.twig', [
             'form' => $form,
             'title' => $project->getTitle(),
+
         ]);
     }
 

@@ -37,7 +37,10 @@ class TaskType extends AbstractType
             ])
             ->add('status', EntityType::class, [
                 'class' => StatusTask::class,
-                'choice_label' => 'status',
+                //'choice_label' => 'status',
+                'choice_label' => function($task){
+                    return $task->getStatus();
+                },
             ])
         ;
     }

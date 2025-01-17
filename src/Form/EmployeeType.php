@@ -4,7 +4,7 @@ namespace App\Form;
 
 use App\Entity\Employee;
 use App\Entity\Project;
-use App\Entity\ContractType;
+use App\Entity\ContractStatus;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -15,11 +15,10 @@ class EmployeeType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('contractType_id')
-            /*->add('contractType_id', EntityType::class, [
-                'class' => ContractType::class,
-                'choice_label' => 'contractType',
-            ])*/
+            ->add('contractStatus', EntityType::class, [
+                'class' => ContractStatus::class,
+                'choice_label' => 'status',
+            ])
             ->add('firstName')
             ->add('lastName')
             ->add('email')

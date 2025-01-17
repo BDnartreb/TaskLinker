@@ -19,11 +19,8 @@ class Task
     private ?project $project = null;
 
     #[ORM\ManyToOne(targetEntity: Employee::class, inversedBy: 'id')]
+    #[ORM\JoinColumn(nullable: true, onDelete: 'SET NULL')] //in case of employee deleting
     private ?employee $employee = null;
-
-    /* test pour fixtures
-    #[ORM\Column]
-    private ?int $status = null;*/
 
     #[ORM\ManyToOne(targetEntity: StatusTask::class, inversedBy: 'id')]
     #[ORM\JoinColumn(nullable: false)]
@@ -66,19 +63,6 @@ class Task
 
         return $this;
     }
-
-    /* test pour fixtures
-    public function getStatus(): ?int
-    {
-        return $this->status;
-    }
-
-    public function setStatus(int $status): static
-    {
-        $this->status = $status;
-
-        return $this;
-    }*/
 
     public function getStatus(): ?statustask
     {

@@ -19,7 +19,7 @@ class EmployeeController extends AbstractController
     {
     }
 
-    #[Route('/employee', name: 'app_employees')]
+    #[Route('/employees', name: 'app_employees')]
     public function index(): Response
     {
         $employees = $this->employeeRepository->findAll();
@@ -54,7 +54,6 @@ class EmployeeController extends AbstractController
     public function deleteEmployee(Request $request, EntityManagerInterface $manager): Response
     {
         $employeeId = $request->get('id');
-        var_dump($employeeId);
         $employee = $this->employeeRepository->find($employeeId);
         $manager->remove($employee);
         $manager->flush();

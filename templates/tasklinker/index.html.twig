@@ -3,7 +3,7 @@
 {% block title %}Accueil - Tasklinker{% endblock %}
 
 {% block body %}
-<main>
+<main >
    <header>
       <div id="current-user"></div>
       <div id="title-page">
@@ -11,7 +11,7 @@
       </div>
    </header>
    <div id="content">
-      <div id="projects-container">
+      <div class="body" id="projects-container">
          {% for project in projects %}
             {% if project.archived == '0' %}
                <article class="card-project">
