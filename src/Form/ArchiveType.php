@@ -16,13 +16,6 @@ class ArchiveType extends AbstractType
         $builder
             ->add('title')
             ->add('archived')
-            /*->add('employees', EntityType::class, [
-                'class' => Employee::class,
-                'choice_label' => function($employee){
-                    return $employee->getFirstname() . ' ' . $employee->getLastname();
-                },
-                'multiple' => true,
-            ])*/
         ;
     }
 

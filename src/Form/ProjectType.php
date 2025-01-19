@@ -15,14 +15,6 @@ class ProjectType extends AbstractType
     {
         $builder
             ->add('title')
-            ->add('archived')
-             /*->add('employees', EntityType::class, [
-                'class' => Project::class,
-                'choice_label' => function($project){
-                    return $project->getEmployees()->getFirstname() . ' ' . $project->getEmployees()->getLastname();
-                },
-                'multiple' => true,
-            ])*/
             ->add('employees', EntityType::class, [
                 'class' => Employee::class,
                 'choice_label' => function($employee){

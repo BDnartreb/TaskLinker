@@ -74,7 +74,7 @@ class ProjectController extends AbstractController
     {
         $id = $request->get('id');
         $project = $this->projectRepository->find($id);
-        $form = $this->createForm(ProjectType::class, $project);
+        $form = $this->createForm(ArchiveType::class, $project);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()){
@@ -84,7 +84,7 @@ class ProjectController extends AbstractController
             return $this->redirectToRoute('app_home');
         }
 
-        return $this->render('project/addproject.html.twig', [
+        return $this->render('project/archiveproject.html.twig', [
             'form' => $form,
             'title' => $project->getTitle(),
         ]);
