@@ -32,7 +32,7 @@ final class EmployeeFactory extends PersistentProxyObjectFactory
     protected function defaults(): array|callable
     {
         return [
-            'contractType_id' => self::faker()->numberBetween(1, 4),
+            'contractStatus' => ContractStatusFactory::random(),
             'email' => self::faker()->email(),
             'firstName' => self::faker()->firstName(),
             'lastName' => self::faker()->lastName(),

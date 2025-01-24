@@ -133,4 +133,9 @@ class Employee
 
         return $this;
     }
+
+    public function getInitials(): string
+    {
+        return substr($this->firstName, 0, 1) . substr($this->lastName, 0, 1);
+    }
 }

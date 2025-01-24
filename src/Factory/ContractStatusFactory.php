@@ -2,13 +2,13 @@
 
 namespace App\Factory;
 
-use App\Entity\ContractType;
+use App\Entity\ContractStatus;
 use Zenstruck\Foundry\Persistence\PersistentProxyObjectFactory;
 
 /**
- * @extends PersistentProxyObjectFactory<ContractType>
+ * @extends PersistentProxyObjectFactory<Contract>
  */
-final class ContractTypeFactory extends PersistentProxyObjectFactory
+final class ContractStatusFactory extends PersistentProxyObjectFactory
 {
     /**
      * @see https://symfony.com/bundles/ZenstruckFoundryBundle/current/index.html#factories-as-services
@@ -21,7 +21,7 @@ final class ContractTypeFactory extends PersistentProxyObjectFactory
 
     public static function class(): string
     {
-        return ContractType::class;
+        return ContractStatus::class;
     }
 
     /**
@@ -32,7 +32,7 @@ final class ContractTypeFactory extends PersistentProxyObjectFactory
     protected function defaults(): array|callable
     {
         return [
-            'contractTYpe' => self::faker()->text(255),
+            'contractStatus' => self::faker()->text(255),
         ];
     }
 

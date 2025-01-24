@@ -2,13 +2,8 @@
 
 namespace App\Factory;
 
-use App\Entity\StatusTask;
 use App\Entity\Task;
-use App\Repository\TaskRepository;
-use Doctrine\ORM\EntityRepository;
 use Zenstruck\Foundry\Persistence\PersistentProxyObjectFactory;
-use Zenstruck\Foundry\Persistence\Proxy;
-use Zenstruck\Foundry\Persistence\ProxyRepositoryDecorator;
 
 /**
  * @extends PersistentProxyObjectFactory<Task>
@@ -37,8 +32,7 @@ final class TaskFactory extends PersistentProxyObjectFactory{
     {
         return [
             'project' => ProjectFactory::new(),
-            'status' => StatusTaskFactory::new(),
-            //'status_id' => self::faker()->numberBetween(1, 3),
+            'status' => StatusTaskFactory::random(),
             'employee' => EmployeeFactory::new(),
             'title' => self::faker()->text(10),
             'description' => self::faker()->text(50),

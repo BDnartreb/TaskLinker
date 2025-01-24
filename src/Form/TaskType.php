@@ -2,10 +2,12 @@
 
 namespace App\Form;
 
-use App\Entity\employee;
-use App\Entity\project;
+use App\Entity\Employee;
+use App\Entity\Project;
 use App\Entity\StatusTask;
 use App\Entity\Task;
+use App\Repository\EmployeeRepository;
+use Doctrine\ORM\QueryBuilder;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -17,27 +19,26 @@ class TaskType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        $projectId = $options['projectId']; //gets options_resolver param of the buildForm
         $builder
             ->add('title', TextType::class, ['label' => 'Titre de la tâche'])
             ->add('description', TextareaType::class)
-            ->add('deadline', null, [
-                'widget' => 'single_text',
-            ])
-
-            /*->add('project', EntityType::class, [
-                'class' => project::class,
-                'choice_label' => 'id',
-            ])*/
-
+            ->add('deadline')
             ->add('employee', EntityType::class, [
-                'class' => employee::class,
+                'class' => Employee::class,
+                'query_builder' => function (EmployeeRepository $er) use ($projectId) {
+                    return $er->createQueryBuilder('e')
+                        ->join('e.projects', 'p')
+                        ->where('p.id = :projectId')
+                        ->setParameter('projectId', $projectId)
+                    ;
+                },
                 'choice_label' => function($employee){
                     return $employee->getFirstname() . ' ' . $employee->getLastname();
                 },
             ])
             ->add('status', EntityType::class, [
                 'class' => StatusTask::class,
-                //'choice_label' => 'status',
                 'choice_label' => function($task){
                     return $task->getStatus();
                 },
@@ -49,6 +50,7 @@ class TaskType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Task::class,
+            'projectId' => null // options_resolver param used by the buildForm (param coming for TaskController)
         ]);
     }
 }

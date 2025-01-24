@@ -55,7 +55,11 @@ class TaskController extends AbstractController
     public function editTask(Task $task, Request $request, EntityManagerInterface $manager): Response
     {
         $task ??= new Task();
-        $form = $this->createForm(TaskType::class, $task);
+        $form = $this->createForm(TaskType::class, $task,
+        [
+            'projectId' => $task->getProject()->getId()
+        ]);
+        // projectId defined as options_resolver of createForm, as param for TaskType.php file
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()){
@@ -65,10 +69,16 @@ class TaskController extends AbstractController
             return $this->redirectToRoute('app_project', ['id' => $task->getProject()->getId()]);
         }
 
+       /* $firstName = $task->getEmployee()->getFirstName();
+        $l = $task->setFirstLetter($firstName);
+        $firstLetter = $task->getFirstLetter($l);
+        var_dump($firstLetter);*/
+
         return $this->render('task/task.html.twig', [
             'form' => $form,
             'task' => $task,
             'title' => $task->getTitle(),
+         //   'firstLetter' => $firstLetter,
         ]);
     }
 

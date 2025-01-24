@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block title %} {{ project.title }} {% endblock %}
-
+{% block projectactive %}active{% endblock %}
 {% block body %}
 <main>
    <header>
@@ -10,8 +10,8 @@
            <div class="flex-header">
                <h1>{{ project.title }}</h1>
                <div class="user-list">
-                  {% for task in tasks %}
-                     <div class="avatar"> AA </div>
+                  {% for employee in project.employees %}
+                     <div class="avatar"> {{ employee.initials }}</div>
                   {% endfor %}
                </div>
                <a class="button" href="{{ path('app_edit_project', {id: project.id}) }}">Modifier</a>
@@ -30,10 +30,10 @@
                         <p>{{ task.description }}</p>
                         <div class="task-infos">
                            <div class="task-deadline">
-                              <i class="fa-regular fa-calendar"></i> {{ task.deadline }}
+                              <i class="fa-regular fa-calendar"></i> {{ task.deadline|date("d/m/Y") }}
                            </div>
                            <div class="mini-user">
-                              DB
+                              {{ task.employee.initials ?? "" }}
                            </div>
                         </div>
                      </a>
@@ -54,10 +54,10 @@
                         <p>{{ task.description }}</p>
                         <div class="task-infos">
                            <div class="task-deadline">
-                                 <i class="fa-regular fa-calendar"></i> {{ task.deadline }}
+                                 <i class="fa-regular fa-calendar"></i> {{ task.deadline|date("d/m/Y") }}
                            </div>
                            <div class="mini-user">
-                              DB
+                              {{ task.employee.initials ?? "" }}
                            </div>
                         </div>
                      </a>
@@ -78,10 +78,10 @@
                         <p>{{ task.description }}</p>
                         <div class="task-infos">
                            <div class="task-deadline">
-                                 <i class="fa-regular fa-calendar"></i> {{ task.deadline }}
+                                 <i class="fa-regular fa-calendar"></i> {{ task.deadline|date("d/m/Y") }}
                            </div>
                            <div class="mini-user">
-                              DB
+                              {{ task.employee.initials ?? ""}}
                            </div>
                         </div>
                      </a>

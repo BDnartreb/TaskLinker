@@ -2,11 +2,11 @@
 
 namespace App\Controller;
 
-use App\Entity\Task;
-use App\Form\TaskType;
 use App\Entity\Project;
+use App\Entity\Employee;
 use App\Form\ProjectType;
 use App\Form\ArchiveType;
+use App\Repository\EmployeeRepository;
 use App\Repository\ProjectRepository;
 use App\Repository\TaskRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -22,6 +22,7 @@ class ProjectController extends AbstractController
     public function __construct (
         private ProjectRepository $projectRepository,
         private TaskRepository $taskRepository,
+        private EmployeeRepository $employeeRepository,
     )
     {
     }
@@ -35,13 +36,35 @@ class ProjectController extends AbstractController
         if(!$project){
             return $this->redirectToRoute('app_home');
         }
+/*
+        foreach ($tasks as $task){
+            $taskFirstName = $task->getEmployee()->getFirstName();
+            $temp = $task->setFirstLetter($taskFirstName);
+            $taskFirstNameLetter = $task->getFirstLetter($temp);
 
-        //$avatar = substr($project->getEmployees()->getFirstName(), 0, 1);
+            $taskLastName = $task->getEmployee()->getLastName();
+            $temp = $task->setFirstLetter($taskLastName);
+            $taskLastNameLetter = $task->getFirstLetter($temp);
+            $taskAvatar = $taskFirstNameLetter . $taskLastNameLetter;
+            var_dump($taskAvatar);
+            //$tasks = ["taskAvatar" => $taskAvatar,];
+        }
+   
+        
+        $projectFirstName = "FirstName";
+        $l = $project->setFirstLetter($projectFirstName);
+        $projectFirstNameLetter = $project->getFirstLetter($l);
+        $projectLastName = "LastName";
+        $l = $project->setFirstLetter($projectLastName);
+        $projectLastNameLetter = $project->getFirstLetter($l);
+        var_dump($projectFirstNameLetter);
+        var_dump($projectLastNameLetter);
+        $projectAvatar = $projectFirstNameLetter . $projectLastNameLetter;*/
 
         return $this->render('project/project.html.twig', [
             'project' => $project,
             'tasks' => $tasks,
-            //'avatar' => $avatar,
+            //'projectAvatar' => $projectAvatar,
         ]);
     }
 

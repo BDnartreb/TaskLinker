@@ -35,6 +35,10 @@ class Task
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $deadline = null;
 
+    private ?string $taskAvatar;
+    private ?string $firstLetter;
+
+
     public function getId(): ?int
     {
         return $this->id;
@@ -100,9 +104,9 @@ class Task
         return $this;
     }
 
-    public function getDeadline(): ?String
+    public function getDeadline(): ?\DateTimeInterface
     {
-        return $this->deadline?->format('Y-m-d' ?? '');
+        return $this->deadline;
     }
 
     public function setDeadline(?\DateTimeInterface $deadline): static
@@ -112,4 +116,16 @@ class Task
         return $this;
     }
 
+
+    public function getTaskAvatar(): ?string
+    {
+        return $this->taskAvatar;
+    }
+
+    public function setTaskAvatar(?string $taskAvatar): static
+    {
+        $this->taskAvatar = $taskAvatar;
+
+        return $this;
+    }
 }
