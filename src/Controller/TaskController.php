@@ -35,7 +35,10 @@ class TaskController extends AbstractController
     {
         $task ??= new Task();
         $task->setProject($project);
-        $form = $this->createForm(TaskType::class, $task);
+        $form = $this->createForm(TaskType::class, $task,
+        [
+            'projectId' => $task->getProject()->getId()
+        ]);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()){
@@ -69,16 +72,10 @@ class TaskController extends AbstractController
             return $this->redirectToRoute('app_project', ['id' => $task->getProject()->getId()]);
         }
 
-       /* $firstName = $task->getEmployee()->getFirstName();
-        $l = $task->setFirstLetter($firstName);
-        $firstLetter = $task->getFirstLetter($l);
-        var_dump($firstLetter);*/
-
         return $this->render('task/task.html.twig', [
             'form' => $form,
             'task' => $task,
             'title' => $task->getTitle(),
-         //   'firstLetter' => $firstLetter,
         ]);
     }
 

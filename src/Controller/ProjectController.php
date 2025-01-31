@@ -83,8 +83,6 @@ class ProjectController extends AbstractController
             return $this->redirectToRoute('app_home');
         }
 
-
-
         return $this->render('project/addproject.html.twig', [
             'form' => $form,
             'title' => $project->getTitle(),

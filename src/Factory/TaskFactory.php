@@ -3,6 +3,7 @@
 namespace App\Factory;
 
 use App\Entity\Task;
+use Symfony\Component\Validator\Constraints\GreaterThan;
 use Zenstruck\Foundry\Persistence\PersistentProxyObjectFactory;
 
 /**
@@ -36,6 +37,7 @@ final class TaskFactory extends PersistentProxyObjectFactory{
             'employee' => EmployeeFactory::new(),
             'title' => self::faker()->text(10),
             'description' => self::faker()->text(50),
+            'deadline' => self::faker()->dateTime(),
         ];
     }
 

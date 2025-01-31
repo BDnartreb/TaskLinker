@@ -5,6 +5,7 @@ namespace App\DataFixtures;
 use App\Factory\EmployeeFactory;
 use App\Factory\ProjectFactory;
 use App\Factory\TaskFactory;
+use App\Entity\Project;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
@@ -14,9 +15,9 @@ class AppFixtures extends Fixture
     {
         // $product = new Product();
         // $manager->persist($product);
-        EmployeeFactory::createMany(1);
-        TaskFactory::createMany(1);
-        ProjectFactory::createMany(1);
+        EmployeeFactory::createMany(3);
+        TaskFactory::createMany(3);
+        ProjectFactory::createMany(3);
 
         $manager->flush();
     }
