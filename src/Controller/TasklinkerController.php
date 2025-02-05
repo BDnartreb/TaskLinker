@@ -19,9 +19,17 @@ class TasklinkerController extends AbstractController
     public function index(): Response
     {
         $projects = $this->projectRepository->findAll();
+        $user = $this->getUser();
 
         return $this->render('tasklinker/index.html.twig', [
             'projects' => $projects,
+            'user' => $user,
         ]);
+    }
+
+    #[Route('/welcome', name: 'app_welcome')]
+    public function welcome(): Response
+    {
+        return $this->render('connection/welcome.html.twig');
     }
 }

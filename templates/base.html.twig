@@ -22,7 +22,7 @@
     <body>
         <div id="main-container">
             <nav>
-               <a href="{{ path('app_home') }}" id="logo">
+               <a href="{{ path('app_welcome') }}" id="logo">
                <img src="{{ asset('img/logo.png') }}" alt="Logo TaskLinker" />
                </a>
                <ul id="main-menu">
@@ -38,6 +38,25 @@
                   </li>
                </ul>
             </nav>
+            <main>
+                <header>
+                   <div id="current-user">{{ app.user.firstName | first }} {{ app.user.lastName | first }}</div>
+                   {% block mainHeader %}
+                   {#<div id="title-page">
+                        <div class="flex-header">
+                            <h1> {{ project.title }}</h1>
+                            <div class="user-list">
+                               {% for employee in project.employees %}
+                                  <div class="avatar"> {{ employee.initials }}</div>
+                               {% endfor %}
+                            </div>
+                            <a class="button" href="{{ path('app_edit_project', {id: project.id}) }}">Modifier</a>
+                        </div>
+                   </div>#}
+                   {% endblock %}
+                </header>
         {% block body %}{% endblock %}
+            {#</main>#}
+        </div>
     </body>
 </html>

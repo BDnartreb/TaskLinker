@@ -1,0 +1,25 @@
+{% extends 'connection/base-logout.html.twig' %}
+
+{% block title %}Connexion{% endblock %}
+
+{% block body %}
+<div class="welcome">
+<h1>Bienvenue sur TaskLinker</h1>
+<h2>Commencez dès maintenant - gratuitement</h2>
+<h3>Vous avez déjà un compte?</h3>
+<a href="{{ path('app_login') }}">
+    <button class="button button-connection">Se connecter</button>   
+</a>
+<div class="ou">
+    {#<div class="horizontal-line"></div>#}
+    <div><p>     ou     </p></div>
+    {#<div class="horizontal-line"></div>#}
+</div>
+<a href="{{ path('app_register') }}">
+    <button class="button button-subscribe">S'inscrire</button>
+</a>
+</div>
+
+
+
+{% endblock %}

@@ -2,14 +2,20 @@
 
 namespace App\Controller;
 
+use App\Entity\ContractStatus;
 use App\Entity\Employee;
 use App\Form\EmployeeType;
+use App\Form\RegistrationType;
+use App\Form\ConnectionType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use App\Repository\EmployeeRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+
 
 class EmployeeController extends AbstractController
 {
@@ -50,6 +56,47 @@ class EmployeeController extends AbstractController
         ]);
     }
 
+    #[Route('/register', name: 'app_register')]
+    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
+    {
+        //$user = new User();
+        $employee = new Employee();//NEW
+
+        /*$status = new ContractStatus();
+        $status = $status->setStatus('CDI');
+        $employee->setContractStatus($status);*/
+        $employee->setRecruitmentDate(new \DateTime());
+
+        $form = $this->createForm(RegistrationType::class, $employee);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            /** @var string $plainPassword */
+            $plainPassword = $form->get('plainPassword')->getData();
+
+            // encode the plain password
+            $employee->setPassword($userPasswordHasher->hashPassword($employee, $plainPassword));
+ 
+            //$entityManager->persist($employee);
+            $entityManager->persist($employee);
+            $entityManager->flush();
+
+            // do anything else you need here, like send an email
+
+            return $this->redirectToRoute('app_login');
+        }
+
+        return $this->render('connection/register.html.twig', [
+            'form' => $form,
+        ]);
+    }
+
+    #[Route(path: '/logout', name: 'app_logout')]
+    public function logout(): void
+    {
+        throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
+    }
+
     #[Route('/employee/supprimer', name: 'app_delete_employee', requirements:['id' => '\d+'], methods: ['GET', 'POST'])]
     public function deleteEmployee(Request $request, EntityManagerInterface $manager): Response
     {
@@ -59,4 +106,33 @@ class EmployeeController extends AbstractController
         $manager->flush();
         return $this->redirectToRoute('app_employees');
    }
+
 }
+
+/*
+ #[IsGranted('ROLE_AJOUT_DE_LIVRE')]
+    #[Route('/new', name: 'app_admin_author_new', methods: ['GET', 'POST'])]
+    #[Route('/{id}/edit', name: 'app_admin_author_edit', requirements: ['id' => '\d+'], methods: ['GET', 'POST'])]
+    public function new(?Author $author, Request $request, EntityManagerInterface $manager): Response
+    {
+        if ($author) {
+            $this->denyAccessUnlessGranted('ROLE_EDITION_DE_LIVRE');
+        }
+
+        $author ??= new Author();
+        $form = $this->createForm(AuthorType::class, $author);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $manager->persist($author);
+            $manager->flush();
+
+            //return $this->redirectToRoute('app_admin_author_new');
+            return $this->redirectToRoute('app_admin_author_show', ['id' => $author->getId()]);
+        }
+
+        return $this->render('admin/author/new.html.twig', [
+            'form' => $form,
+        ]);
+        
+    } */
