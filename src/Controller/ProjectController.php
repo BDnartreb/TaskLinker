@@ -14,6 +14,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+
+use Symfony\Component\Security\Core\User\UserInterface;
 
 use function Zenstruck\Foundry\Persistence\persist;
 
@@ -23,9 +27,32 @@ class ProjectController extends AbstractController
         private ProjectRepository $projectRepository,
         private TaskRepository $taskRepository,
         private EmployeeRepository $employeeRepository,
+
+        private AuthenticationUtils $authenticationUtils,//NEW comming from TaskLinkerController
     )
     {
     }
+//NEW comming from TaskLinkerController
+    #[IsGranted('ROLE_USER')]
+    #[Route('/projects', name: 'app_projects')]
+    public function index(): Response
+    {
+        $userId = $this->getUser()->getId();
+        var_dump($userId);
+        $userProjects = $this->getUser()->getFirstName();
+        var_dump($userProjects);
+        //$projects = $this->projectRepository->findAll();
+        $userProjects = $this->getUser()->getProjects();
+        //$projects = $this->projectRepository->findBy(['employees' => $userId]);
+        
+ 
+
+        return $this->render('project/projects.html.twig', [
+            'projects' => $userProjects,
+            //'user' => $user,
+        ]);
+    }
+
 
     #[Route('/project/{id}', name: 'app_project', requirements:['id' => '\d+'], methods: ['GET'])]
     public function project(int $id): Response
@@ -34,32 +61,8 @@ class ProjectController extends AbstractController
         $tasks = $this->taskRepository->findBy(['project' => $id]);
 
         if(!$project){
-            return $this->redirectToRoute('app_home');
+            return $this->redirectToRoute('app_projects');
         }
-/*
-        foreach ($tasks as $task){
-            $taskFirstName = $task->getEmployee()->getFirstName();
-            $temp = $task->setFirstLetter($taskFirstName);
-            $taskFirstNameLetter = $task->getFirstLetter($temp);
-
-            $taskLastName = $task->getEmployee()->getLastName();
-            $temp = $task->setFirstLetter($taskLastName);
-            $taskLastNameLetter = $task->getFirstLetter($temp);
-            $taskAvatar = $taskFirstNameLetter . $taskLastNameLetter;
-            var_dump($taskAvatar);
-            //$tasks = ["taskAvatar" => $taskAvatar,];
-        }
-   
-        
-        $projectFirstName = "FirstName";
-        $l = $project->setFirstLetter($projectFirstName);
-        $projectFirstNameLetter = $project->getFirstLetter($l);
-        $projectLastName = "LastName";
-        $l = $project->setFirstLetter($projectLastName);
-        $projectLastNameLetter = $project->getFirstLetter($l);
-        var_dump($projectFirstNameLetter);
-        var_dump($projectLastNameLetter);
-        $projectAvatar = $projectFirstNameLetter . $projectLastNameLetter;*/
 
         return $this->render('project/project.html.twig', [
             'project' => $project,
@@ -68,6 +71,7 @@ class ProjectController extends AbstractController
         ]);
     }
 
+    #[IsGranted('ROLE_ADMIN')]
     #[Route('project/ajouter' , name: 'app_add_project', methods: ['GET', 'POST'])]
     #[Route('project/{id}/edit' , name: 'app_edit_project', methods: ['GET', 'POST'])]
     public function addProject(?Project $project, Request $request, EntityManagerInterface $manager)
@@ -80,7 +84,7 @@ class ProjectController extends AbstractController
             $manager->persist($project);
             $manager->flush();
 
-            return $this->redirectToRoute('app_home');
+            return $this->redirectToRoute('app_projects');
         }
 
         return $this->render('project/addproject.html.twig', [
@@ -90,6 +94,7 @@ class ProjectController extends AbstractController
         ]);
     }
 
+    #[IsGranted('ROLE_ADMIN')]
     #[Route('project/{id}/archive' , name: 'app_archive_project', methods: ['GET', 'POST'])]
     public function archiveProject(int $id, Request $request, EntityManagerInterface $manager)
     {
@@ -102,7 +107,7 @@ class ProjectController extends AbstractController
             $manager->persist($project);
             $manager->flush();
 
-            return $this->redirectToRoute('app_home');
+            return $this->redirectToRoute('app_projects');
         }
 
         return $this->render('project/archiveproject.html.twig', [

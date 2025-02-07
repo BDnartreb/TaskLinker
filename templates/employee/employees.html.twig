@@ -2,52 +2,56 @@
 
 {% block title %}Liste des employes{% endblock %}
 {% block employeeactive %}active{% endblock %}
+
+{% block mainHeader %}
+   <div id="title-page">
+      <h1>Équipe</h1>
+   </div>
+{% endblock %}
 {% block body %}
-<main>
-    <header>
-       <div id="current-user"></div>
-       <div id="title-page">
-          <h1>Équipe</h1>
-       </div>
-    </header>
-    <div id="content">
-       <table id="team-container">
-          <thead>
-             <tr>
-                <th>Prénom, Nom</th>
-                <th>Statut</th>
-                <th>Actions</th>
-             </tr>
-          </thead>
-          <tbody>
-            {% for employee in employees %}
-             <tr>
-                <td>
-                   <div class="employee-infos">
-                      <div class="employee-avatar">
-                         ND
-                      </div>
-                      <div class="employee-coords">
-                         <strong>{{employee.firstname}} {{employee.lastname}}</strong>
-                         <span>{{employee.email}}</span>
-                      </div>
-                   </div>
-                </td>
-                <td>{{employee.contractStatus.status}}</td>
-                <td>
-                   <a class="button button-edit-team" href="{{ path('app_employee', {id: employee.id}) }}">
-                   Éditer
-                   </a>
-                   <a class="delete-team" href="{{ path('app_delete_employee', {id: employee.id}) }}">
-                   Supprimer
-                   </a>
-                </td>
-             </tr>
-             {% endfor %}
-          </tbody>
-       </table>
-    </div>
- </main>
-
-
+   <div id="content">
+      <table id="team-container">
+         <thead>
+            <tr>
+               <th>Prénom, Nom, Email</th>
+               <th>Statut</th>
+               <th>Role</th>
+               <th>Actions</th>
+            </tr>
+         </thead>
+         <tbody>
+         {% for employee in employees %}
+            <tr>
+               <td>
+                  <div class="employee-infos">
+                     <div class="employee-avatar">
+                        ND
+                     </div>
+                     <div class="employee-coords">
+                        <strong>{{employee.firstname}} {{employee.lastname}}</strong>
+                        <span>{{employee.email}}</span>
+                     </div>
+                  </div>
+               </td>
+               <td>{{employee.contractStatus.status}}</td>
+               <td>
+                  {% if (employee.roles[0] is same as("ROLE_ADMIN")) %}
+                     Chef de Projets
+                  {% else %}
+                     Développeur
+                  {% endif %}
+               </td>
+               <td>
+                  <a class="button button-edit-team" href="{{ path('app_employee', {id: employee.id}) }}">
+                  Éditer
+                  </a>
+                  <a class="delete-team" href="{{ path('app_delete_employee', {id: employee.id}) }}">
+                  Supprimer
+                  </a>
+               </td>
+            </tr>
+            {% endfor %}
+         </tbody>
+      </table>
+   </div>
 {% endblock %}

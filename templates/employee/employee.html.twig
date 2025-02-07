@@ -2,29 +2,29 @@
 
 {% block title %}Employé{% endblock %}
 {% block employeeactive %}active{% endblock %}
+
+{% block mainHeader %}
+   <div id="title-page">
+      <h1>{{ employee.firstName }} {{ employee.lastName }}</h1>
+   </div>
+{% endblock %} 
+
 {% block body %}
-   <main>
-      <header>
-         <div id="current-user"></div>
-         <div id="title-page">
-            <h1>{{ employee.firstName }} {{ employee.lastName }}</h1>
-         </div>
-      </header>
-      <div id="content">
-         {{ form_start(form) }}
-            {{ form_row(form.lastName, {label: 'Nom'}) }}
-            {{ form_row(form.firstName, {label: 'Prénom'}) }}
-            {{ form_row(form.email, {label: 'Email'}) }}
-            <div class="form-flex">
-               <div>
-                  {{ form_row(form.recruitmentDate, {label: 'Date d\'entrée'}) }}
-               </div>
-               <div>
-                  {{ form_row(form.contractStatus, {label: 'Statut'}) }}
-               </div>
+   <div id="content">
+      {{ form_start(form) }}
+         {{ form_row(form.firstName, {label: 'Prénom'}) }}
+         {{ form_row(form.lastName, {label: 'Nom'}) }}
+         {{ form_row(form.email, {label: 'Email'}) }}
+         {{ form_row(form.admin, {label: 'Role'}) }}
+         <div class="form-flex">
+            <div>
+               {{ form_row(form.recruitmentDate, {label: 'Date d\'entrée'}) }}
             </div>
-            <button class="button button-submit">Enregistrer</button>       
-         {{ form_end(form) }}
-      </div>
-   </main>
+            <div>
+               {{ form_row(form.contractStatus, {label: 'Statut'}) }}
+            </div>
+         </div>
+         <button class="button button-submit">Enregistrer</button>       
+      {{ form_end(form) }}
+   </div>
 {% endblock %}

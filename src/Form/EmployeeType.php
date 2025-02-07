@@ -3,12 +3,14 @@
 namespace App\Form;
 
 use App\Entity\Employee;
-use App\Entity\Project;
 use App\Entity\ContractStatus;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 class EmployeeType extends AbstractType
 {
@@ -25,13 +27,27 @@ class EmployeeType extends AbstractType
             ->add('recruitmentDate', null, [
                 'widget' => 'single_text',
             ])
-            /*->add('projects', EntityType::class, [
-                'class' => Project::class,
-                'choice_label' => 'id',
-                'multiple' => true,
+            ->add('admin', ChoiceType::class, [
+                'label' => 'Rôle',
+                'choices' => [
+                    'Dev' => false,
+                    'Chef' => true,
+                ],
+            ])
+            /*
+            ->add('roles', CollectionType::class, [
+                'entry_type' => ChoiceType::class,
+                'entry_options' => [
+                    'choices' => [
+                        'Développeur' => 'ROLE_USER',
+                        'Chef de projet' => 'ROLE_ADMIN',
+                    ],
+                ],
             ])*/
+            //->add('password')
         ;
     }
+
 
     public function configureOptions(OptionsResolver $resolver): void
     {

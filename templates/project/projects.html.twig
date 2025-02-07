@@ -2,14 +2,14 @@
 
 {% block title %}Accueil - Tasklinker{% endblock %}
 {% block projectactive %}active{% endblock %}
+
+{% block mainHeader %}
+   <div id="title-page">
+      <h1>Projets</h1>
+   </div>
+{% endblock %}
+
 {% block body %}
-<main >
-   <header>
-      <div id="current-user"></div>
-      <div id="title-page">
-         <h1>Projets</h1>
-      </div>
-   </header>
    <div id="content">
       <div class="body" id="projects-container">
          {% for project in projects %}
@@ -33,5 +33,4 @@
          </article>
       </div>
    </div>
-</main>
 {% endblock %}

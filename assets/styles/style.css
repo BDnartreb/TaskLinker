@@ -85,7 +85,24 @@ header {
 }
 
 div#current-user {
+    display: flex;
+    flex-direction: row;
+    justify-content: right;
     height: 55px;
+}
+
+.avatar-logout {
+    width: 54px;
+    height: 54px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: -12px;
+    color: #1C5B50;
+    background: #FFFFFF;
+    border: 1px solid #1C5B50;
+    text-decoration: none;
 }
 
 div#title-page h1 {
@@ -485,6 +502,122 @@ form .select2-container--default .select2-selection--multiple .select2-selection
     right: 5px;
     left: unset;
     font-size: 16px;
+}
+
+/*BASE LOGOUT*/
+
+.logout-main-container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 1024px;
+    background: #e0e1db;
+}
+
+.logout-logo {
+    width: 15%;
+    padding: 52px;
+    justify-items: left;
+}
+
+.logout-central-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 70%;
+}
+
+.logout-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 710px;
+    min-height:698px;
+    padding: 50px 0px 50px 0px;
+    border-radius: 30px;
+    background: #4D8077;
+}
+
+/* WELCOME*/
+
+.welcome {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #FFFFFF;
+}
+
+.welcome h1 {
+    display: flex;
+    justify-content: center;
+    font-size: 36px;
+}
+
+.welcome h2 {
+    display: flex;
+    justify-content: center;
+    font-size: 22px;
+    font-weight: 400;
+}
+
+.welcome h3 {
+    display: flex;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: 400;
+}
+
+.welcome label {
+    color: #FFFFFF;
+    font-weight: 400;
+}
+
+.ou {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.horizontal-line {
+    display: flex;
+    justify-items: center;
+    width: 130px;
+    height: 1px;
+    background: #FFFFFF;
+}
+
+.button-connection {
+    display: flex;
+    justify-content: center;
+    width: 224px;
+    height: 74px;
+    background: #1F5B50;
+    border-radius: 10px;
+    font-family: Manrope;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 24px;
+    letter-spacing: 0em;
+    justify-content: center;
+    border: none;
+    color: #ffffff;
+    height: 70px;
+    margin-top: 5px;
+}
+
+.button-subscribe {
+    background: #B1D89D;
+    color: #4D8077;
+    text-decoration: none;
+    width: 224px;
+    height: 74px;
+    justify-content: center;
+}
+
+.form-costumize {
+    color: #FFFFFF;
 }
 
 @media (max-width: 992px) {

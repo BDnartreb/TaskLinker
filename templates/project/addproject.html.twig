@@ -6,22 +6,20 @@
 
 {% block title %} {{ action }} une tache{% endblock %}
 {% block projectactive %}active{% endblock %}
+
+{% block mainHeader %}
+    <div id="title-page">
+        <h1>{{ title }}</h1>
+    </div>
+{% endblock %}
 {% block body %}
-    <main>
-        <header>
-        <div id="current-user"></div>
-        <div id="title-page">
-            <h1>{{ title }}</h1>
-        </div>
-        </header>
-        <div id="content">
-            {{ form_start(form) }}
-                {{ form_row(form.title, {label: 'Titre du projet'}) }}
-                {{ form_row(form.employees, {label: 'Inviter des membres'}) }}
-                <button class="button button-submit">{{ button }}</button>
-            {{ form_end(form) }}
-            {#{{ form_end(form, {'render_rest': false}) }}
-            n'affiche pas les champs non sélectionnés mais empèche d'exécuter la soumission du formulaire #}
-        </div>
-    </main>
+    <div id="content">
+        {{ form_start(form) }}
+            {{ form_row(form.title, {label: 'Titre du projet'}) }}
+            {{ form_row(form.employees, {label: 'Inviter des membres'}) }}
+            <button class="button button-submit">{{ button }}</button>
+        {{ form_end(form) }}
+        {#{{ form_end(form, {'render_rest': false}) }}
+        n'affiche pas les champs non sélectionnés mais empèche d'exécuter la soumission du formulaire #}
+    </div>
 {% endblock %}
