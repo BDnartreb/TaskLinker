@@ -27,12 +27,8 @@ class Project
      * @var Collection<int, employee>
      */
     #[ORM\ManyToMany(targetEntity: Employee::class, inversedBy: 'projects')]
-   // #[ORM\JoinColumn(nullable: true, onDelete: 'SET NULL')] //in case of employee deleting
     private Collection $employees;
-
     
-    private ?string $firstLetter;
-
     public function __construct()
     {
         $this->employees = new ArrayCollection();

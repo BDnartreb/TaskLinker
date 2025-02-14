@@ -31,12 +31,11 @@ class ProjectController extends AbstractController
     #[Route('/projects', name: 'app_projects')]
     public function index(): Response
     {
-        $userRole = $this->getUser()->getRoles();
         $projects = $this->getUser()->getProjects();
-        //if we want to display all the projects for the Chefs de projets not only their's
-        /*if ($userRole[0] === 'ROLE_ADMIN') {
+
+        if ($this->isGranted('ROLE_ADMIN')) {
             $projects = $this->projectRepository->findAll();
-        }*/
+        }
 
         return $this->render('project/projects.html.twig', [
             'projects' => $projects,

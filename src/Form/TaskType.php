@@ -3,11 +3,9 @@
 namespace App\Form;
 
 use App\Entity\Employee;
-use App\Entity\Project;
 use App\Entity\StatusTask;
 use App\Entity\Task;
 use App\Repository\EmployeeRepository;
-use Doctrine\ORM\QueryBuilder;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;

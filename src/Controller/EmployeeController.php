@@ -72,7 +72,6 @@ class EmployeeController extends AbstractController
             // encode the plain password
             $employee->setPassword($userPasswordHasher->hashPassword($employee, $plainPassword));
  
-            //$entityManager->persist($employee);
             $entityManager->persist($employee);
             $entityManager->flush();
 

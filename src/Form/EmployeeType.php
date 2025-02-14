@@ -34,7 +34,6 @@ class EmployeeType extends AbstractType
                     'Chef' => true,
                 ],
             ])
-            //->add('password')
         ;
     }
 

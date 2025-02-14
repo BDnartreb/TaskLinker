@@ -18,19 +18,6 @@ class SecurityController extends AbstractController
     {
     }
 
-    #[IsGranted('ROLE_USER')]
-    #[Route('/tasklinker', name: 'app_home')]
-    public function index(): Response
-    {
-        $projects = $this->projectRepository->findAll();
-        $user = $this->getUser();
-
-        return $this->render('project/projects.html.twig', [
-            'projects' => $projects,
-            'user' => $user,
-        ]);
-    }
-
     #[Route('/welcome', name: 'app_welcome')]
     public function welcome(): Response
     {

@@ -58,20 +58,6 @@ class RegistrationType extends AbstractType
                     ]),
                 ],
             ])*/
-            /*->add('agreeTerms', CheckboxType::class, [
-                'mapped' => false,
-                'constraints' => [
-                    new IsTrue([
-                        'message' => 'You should agree to our terms.',
-                    ]),
-                ],
-            ])*/
-            //->add('recruitmentDate', DateType::class, ['label' => 'Date d\'embauche'])
-                        /*->add('contractStatus', EntityType::class, [
-                'class' => ContractStatus::class,
-                'choice_label' => 'status',
-                'label' => 'Type de contrat',
-            ])*/
         ;
     }
 
