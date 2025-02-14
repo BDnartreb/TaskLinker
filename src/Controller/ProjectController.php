@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\Project;
-use App\Entity\Employee;
 use App\Form\ProjectType;
 use App\Form\ArchiveType;
 use App\Repository\EmployeeRepository;
@@ -17,39 +16,30 @@ use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
-use Symfony\Component\Security\Core\User\UserInterface;
-
-use function Zenstruck\Foundry\Persistence\persist;
-
 class ProjectController extends AbstractController
 {
     public function __construct (
         private ProjectRepository $projectRepository,
         private TaskRepository $taskRepository,
         private EmployeeRepository $employeeRepository,
-
-        private AuthenticationUtils $authenticationUtils,//NEW comming from TaskLinkerController
+        private AuthenticationUtils $authenticationUtils,
     )
     {
     }
-//NEW comming from TaskLinkerController
+
     #[IsGranted('ROLE_USER')]
     #[Route('/projects', name: 'app_projects')]
     public function index(): Response
     {
-        $userId = $this->getUser()->getId();
-        var_dump($userId);
-        $userProjects = $this->getUser()->getFirstName();
-        var_dump($userProjects);
-        //$projects = $this->projectRepository->findAll();
-        $userProjects = $this->getUser()->getProjects();
-        //$projects = $this->projectRepository->findBy(['employees' => $userId]);
-        
- 
+        $userRole = $this->getUser()->getRoles();
+        $projects = $this->getUser()->getProjects();
+        //if we want to display all the projects for the Chefs de projets not only their's
+        /*if ($userRole[0] === 'ROLE_ADMIN') {
+            $projects = $this->projectRepository->findAll();
+        }*/
 
         return $this->render('project/projects.html.twig', [
-            'projects' => $userProjects,
-            //'user' => $user,
+            'projects' => $projects,
         ]);
     }
 
@@ -67,7 +57,6 @@ class ProjectController extends AbstractController
         return $this->render('project/project.html.twig', [
             'project' => $project,
             'tasks' => $tasks,
-            //'projectAvatar' => $projectAvatar,
         ]);
     }
 

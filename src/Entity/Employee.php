@@ -6,12 +6,9 @@ use App\Repository\EmployeeRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
-
-//NEW
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
-// ENDNEW
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\component\Validator\Constraints as Assert;
 

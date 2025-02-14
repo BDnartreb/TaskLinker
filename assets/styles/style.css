@@ -511,7 +511,9 @@ form .select2-container--default .select2-selection--multiple .select2-selection
     flex-direction: row;
     width: 100%;
     height: 1024px;
-    background: #e0e1db;
+    background: url("../img/bg-logout.png") center center no-repeat;
+    background-size: cover;
+   /* background: #e0e1db;*/
 }
 
 .logout-logo {

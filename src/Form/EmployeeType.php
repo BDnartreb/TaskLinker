@@ -34,16 +34,6 @@ class EmployeeType extends AbstractType
                     'Chef' => true,
                 ],
             ])
-            /*
-            ->add('roles', CollectionType::class, [
-                'entry_type' => ChoiceType::class,
-                'entry_options' => [
-                    'choices' => [
-                        'Développeur' => 'ROLE_USER',
-                        'Chef de projet' => 'ROLE_ADMIN',
-                    ],
-                ],
-            ])*/
             //->add('password')
         ;
     }

@@ -88,26 +88,4 @@ class TaskController extends AbstractController
         $manager->flush();
         return $this->redirectToRoute('app_project', ['id' => $task->getProject()->getId()]);
     }
-
-
-
-
-   /* #[Route('/task/delete', name: 'app_delete_task', methods: ['GET', 'POST'])]
-    public function deleteTask(?Task $task, Request $request, EntityManagerInterface $manager): Response
-    {
-
-        $form = $this->createForm(TaskType::class, $task);
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()){
-            $manager->remove($form);
-            $manager->flush();
-
-            return $this->redirectToRoute('app_home');
-        }        
-        
-        return $this->render('project/addproject.html.twig', [
-            'controller_name' => 'TaskController',
-        ]);
-    }*/
-
 }
